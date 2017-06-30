@@ -28,6 +28,7 @@ const config = {
 };
 
 function dl(url, length) {
+  console.log("")
   let dld = 0;
   return new Promise((resolve, reject) => {
     const req = request({ method: 'get', uri: url, encoding: null }, (err, response) => {
@@ -59,7 +60,7 @@ function ul(file, data) {
       const offset = i * chunkSize;
       const contents = data.slice(offset, offset + chunkSize);
       return (offset) => {
-        process.stdout.write(`${i} ${contents.length} Upload ${path.basename(file)}: ${Math.round(100 * i * chunkSize / data.length)}%\r`);
+        process.stdout.write(`Upload ${path.basename(file)}: ${Math.round(100 * i * chunkSize / data.length)}%\r`);
         return dropbox.client.filesUploadSessionAppendV2({ contents, cursor: { session_id, offset }}).then(() => offset + Buffer.byteLength(contents))
       };
     });
