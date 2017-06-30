@@ -28,12 +28,13 @@ const config = {
 };
 
 function dl(url, length) {
-  const req = request(url);
-  let file = '';
   let dld = 0;
   return new Promise((resolve, reject) => {
-    req.on('data', data => { file += data; dld += data.length; process.stdout.write(`Download ${path.basename(url)}: ${Math.round(100 * dld/length)}%\r`) });
-    req.on('end', () => resolve(file));
+    const req = request({ method: 'get', uri: 'url', encoding: null }, (err, response) => {
+      if (err) return reject(err);
+      return resolve(response.body);
+    });
+    req.on('data', data => { process.stdout.write(`Download ${path.basename(url)}: ${Math.round(100 * dld/length)}%\r`) });
   });
 }
 
