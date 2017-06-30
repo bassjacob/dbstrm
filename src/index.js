@@ -34,7 +34,7 @@ function dl(url, length) {
       if (err) return reject(err);
       return resolve(response.body);
     });
-    req.on('data', data => { process.stdout.write(`Download ${path.basename(url)}: ${Math.round(100 * dld/length)}%\r`) });
+    req.on('data', data => { dld += data.length; process.stdout.write(`Download ${path.basename(url)}: ${Math.round(100 * dld/length)}%\r`) });
   });
 }
 
