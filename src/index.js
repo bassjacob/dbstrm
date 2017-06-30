@@ -30,7 +30,7 @@ const config = {
 function dl(url, length) {
   let dld = 0;
   return new Promise((resolve, reject) => {
-    const req = request({ method: 'get', uri: 'url', encoding: null }, (err, response) => {
+    const req = request({ method: 'get', uri: url, encoding: null }, (err, response) => {
       if (err) return reject(err);
       return resolve(response.body);
     });
